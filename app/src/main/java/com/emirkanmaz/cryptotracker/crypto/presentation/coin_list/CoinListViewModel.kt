@@ -18,11 +18,11 @@ class CoinListViewModel(
 ): ViewModel() {
 
     private val _state = MutableStateFlow(CoinListState())
-    private val state = _state
+    val state = _state
         .onStart { loadCoins() }
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
+            started = SharingStarted.WhileSubscribed(5000L),
             initialValue = CoinListState()
         )
 
