@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.bundles.koin)
     implementation(libs.bundles.ktor)
+    implementation(libs.androidx.ui.text.google.fonts)
 
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
