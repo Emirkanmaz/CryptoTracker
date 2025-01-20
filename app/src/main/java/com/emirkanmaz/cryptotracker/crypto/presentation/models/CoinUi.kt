@@ -1,7 +1,10 @@
 package com.emirkanmaz.cryptotracker.crypto.presentation.models
 
-import android.icu.number.FormattedNumber
+import android.icu.text.NumberFormat
 import androidx.annotation.DrawableRes
+import com.emirkanmaz.cryptotracker.crypto.domain.Coin
+import com.emirkanmaz.cryptotracker.util.getDrawableIdForCoin
+import java.util.Locale
 
 data class CoinUi (
     val id: String,
@@ -16,5 +19,28 @@ data class CoinUi (
 
 data class DisplayableNumber(
     val value: Double,
-    val formatted: FormattedNumber
+    val formatted: String
 )
+
+fun Coin.toCoinUi(): CoinUi {
+    return CoinUi(
+        id = id,
+        rank = rank,
+        name = name,
+        symbol = symbol,
+        marketCapUsd = marketCapUsd.toDisplayableNumber(),
+        priceUsd = priceUsd.toDisplayableNumber(),
+        changePercent24Hr = changePercent24Hr.toDisplayableNumber(),
+        iconRes = getDrawableIdForCoin(symbol)
+    )
+}
+
+fun Double.toDisplayableNumber(): DisplayableNumber {
+    val formatter = NumberFormat.getNumberInstance(Locale.getDefault()).apply {
+        minimumFractionDigits = 2
+        maximumFractionDigits = 2
+    }
+    return DisplayableNumber(this, formatter.format(this))
+
+
+}

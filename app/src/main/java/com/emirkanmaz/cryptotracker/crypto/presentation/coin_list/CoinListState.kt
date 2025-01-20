@@ -1,0 +1,13 @@
+package com.emirkanmaz.cryptotracker.crypto.presentation.coin_list
+
+import androidx.compose.runtime.Immutable
+import com.emirkanmaz.cryptotracker.crypto.presentation.models.CoinUi
+
+@Immutable
+data class CoinListState(
+    val isLoading: Boolean = false,
+    val coins: List<CoinUi> = emptyList(),
+    val selectedCoin: CoinUi? = null,
+    val error: String? = null,
+    val isRefreshing: Boolean = false
+)
