@@ -1,4 +1,4 @@
-package com.emirkanmaz.cryptotracker.util
+package com.emirkanmaz.cryptotracker.core.domain.util
 
 typealias DomainError = Error
 

@@ -1,4 +1,4 @@
-package com.emirkanmaz.cryptotracker.util
+package com.emirkanmaz.cryptotracker.core.presentation.util
 
 import com.emirkanmaz.cryptotracker.R
 
