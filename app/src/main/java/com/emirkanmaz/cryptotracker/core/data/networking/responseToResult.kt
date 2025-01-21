@@ -1,10 +1,12 @@
 package com.emirkanmaz.cryptotracker.core.data.networking
 
+import android.util.Log
 import com.emirkanmaz.cryptotracker.core.domain.util.NetworkError
 import com.emirkanmaz.cryptotracker.core.domain.util.Result
 import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
+import kotlin.toString
 
 suspend inline fun <reified T> responseToResult(
     response: HttpResponse,
@@ -14,6 +16,7 @@ suspend inline fun <reified T> responseToResult(
             try {
                 Result.Success(response.body<T>())
             } catch (e: NoTransformationFoundException) {
+                Log.d("error", e.message.toString())
                 Result.Error(NetworkError.SERIALIZATION_ERROR)
             }
         }

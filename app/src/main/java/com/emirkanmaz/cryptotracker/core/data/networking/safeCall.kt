@@ -1,5 +1,6 @@
 package com.emirkanmaz.cryptotracker.core.data.networking
 
+import android.util.Log
 import com.emirkanmaz.cryptotracker.core.domain.util.NetworkError
 import com.emirkanmaz.cryptotracker.core.domain.util.Result
 import io.ktor.client.statement.HttpResponse
@@ -16,6 +17,7 @@ suspend inline fun <reified T> safeCall(
     } catch (e: UnresolvedAddressException) {
         return Result.Error(NetworkError.NO_INTERNET_CONNECTION)
     } catch (e: SerializationException) {
+        Log.d("error", e.message.toString())
         return Result.Error(NetworkError.SERIALIZATION_ERROR)
     } catch (e: Exception) {
         coroutineContext.ensureActive() // for coroutine cancellation exception
