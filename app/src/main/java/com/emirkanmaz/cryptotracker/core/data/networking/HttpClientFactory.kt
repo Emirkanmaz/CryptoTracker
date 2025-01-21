@@ -8,6 +8,7 @@ import io.ktor.client.plugins.logging.ANDROID
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.headers
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
@@ -16,19 +17,27 @@ import kotlinx.serialization.json.Json
 object HttpClientFactory {
     fun create(engine: HttpClientEngine): HttpClient {
         return HttpClient(engine) {
-            install(Logging){
+            install(Logging) {
                 logger = Logger.ANDROID
                 level = LogLevel.ALL
             }
-            install(ContentNegotiation){
+
+            install(ContentNegotiation) {
                 json(
+                    contentType = ContentType.Any,  // Accept any content type
                     json = Json {
                         ignoreUnknownKeys = true
+                        prettyPrint = true
+                        isLenient = true
                     }
                 )
             }
+
             defaultRequest {
                 contentType(ContentType.Application.Json)
+                headers {
+                    append("Accept", "application/json")
+                }
             }
         }
     }

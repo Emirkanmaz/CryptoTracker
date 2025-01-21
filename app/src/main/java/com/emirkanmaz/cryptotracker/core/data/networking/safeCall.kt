@@ -1,5 +1,6 @@
 package com.emirkanmaz.cryptotracker.core.data.networking
 
+import android.util.Log
 import com.emirkanmaz.cryptotracker.core.domain.util.NetworkError
 import com.emirkanmaz.cryptotracker.core.domain.util.Result
 import io.ktor.client.statement.HttpResponse
