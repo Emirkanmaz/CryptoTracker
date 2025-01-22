@@ -6,7 +6,6 @@ import com.emirkanmaz.cryptotracker.core.domain.util.Result
 import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
-import kotlin.toString
 
 suspend inline fun <reified T> responseToResult(
     response: HttpResponse,
