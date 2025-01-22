@@ -11,9 +11,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.emirkanmaz.cryptotracker.core.presentation.util.ObserveAsEvents
 import com.emirkanmaz.cryptotracker.core.presentation.util.toString
+import com.emirkanmaz.cryptotracker.crypto.presentation.coin_detail.CoinDetailScreen
 import com.emirkanmaz.cryptotracker.crypto.presentation.coin_list.CoinListEvent
 import com.emirkanmaz.cryptotracker.crypto.presentation.coin_list.CoinListScreen
 import com.emirkanmaz.cryptotracker.crypto.presentation.coin_list.CoinListViewModel
@@ -41,11 +43,19 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     }
-                    CoinListScreen(
-                        state = state,
-                        modifier = Modifier.padding(innerPadding),
-                    )
 
+                    if (state.selectedCoin != null) {
+                        CoinDetailScreen(
+                            state = state,
+                            modifier = Modifier.padding(innerPadding),
+                        )
+                    } else {
+                        CoinListScreen(
+                            state = state,
+                            onAction = viewModel::onAction,
+                            modifier = Modifier.padding(innerPadding),
+                        )
+                    }
                 }
             }
         }
