@@ -35,12 +35,12 @@ class RemoteCoinDataSource(
         start: ZonedDateTime,
         end: ZonedDateTime,
     ): Result<List<CoinPrice>, NetworkError> {
-        val startMilis = start
+        val startMilli = start
             .withZoneSameInstant(ZoneId.of("UTC"))
             .toInstant()
             .toEpochMilli()
 
-        val endMilis = end
+        val endMilli = end
             .withZoneSameInstant(ZoneId.of("UTC"))
             .toInstant()
             .toEpochMilli()
@@ -48,8 +48,8 @@ class RemoteCoinDataSource(
         return safeCall<CoinHistoryDto> {
             httpClient.get(constructUrl("/assets/$coinId/history")) {
                 parameter("interval", "h6")
-                parameter("start", startMilis)
-                parameter("end", endMilis)
+                parameter("start", startMilli)
+                parameter("end", endMilli)
             }
         }.map { response ->
             response.data.map { it.toCoinPrice() }
